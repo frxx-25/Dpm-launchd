@@ -16,7 +16,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    return YES;
+        // Paste this right before the final "return YES;" line
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        printf("[Auto-JB] DOAppDelegate initialized. Forcing execution chain...\n");
+        
+        // This targets Dopamine's background manager class directly and commands it 
+        // to run the exploit sequence without waiting for a visual screen tap.
+        [[ClassFromString(@"DOJailbreakManager") sharedManager] startJailbreak];
+    });
+return YES;
 }
 
 
